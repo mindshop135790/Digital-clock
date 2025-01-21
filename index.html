@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIMEEEEE</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000000; /* 배경색 */
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      height: 100vh; /* 화면 높이를 100% 채움 */
+      display: flex; /* Flexbox 컨테이너 */
+      justify-content: center; /* 가로 중앙 정렬 */
+      align-items: center; /* 세로 중앙 정렬 */
+      overflow: hidden; /* 스크롤바 제거 */
+    }
+
+    .clock {
+      width: 450px;
+      background-color: #ffffff;
+      color: #ffffff;
+      font-family: 'Quicksand', "Helvetica", 'Arial', sans-serif;
+      font-weight: lighter;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .clock-container {
+      text-align: center; /* 텍스트 가운데 정렬 */
+    }
+
+    .inside {
+      width: 100%;
+      padding: 250px 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .days-of-week {
+      color: #ffffff33;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      font-size: 2rem;
+    }
+
+    .days-of-week span {
+     color: #ffffff33; /* 기본 색상 */
+    }
+
+    .days-of-week .active {
+     font-weight: bold; /* 활성화된 요일은 볼드 처리 */
+    }
+
+    .days-of-week .weekday {
+     color: #00ff00; /* 초록색 (월 ~ 금) */
+    }
+
+    .days-of-week .saturday {
+     color: #0000ff; /* 파란색 (토요일) */
+    }
+
+    .days-of-week .sunday {
+     color: #ff0000; /* 빨간색 (일요일) */
+    }
+
+    .time {
+      font-size: 3em;
+      margin-top: 10px;
+      color: #ffffff;
+    }
+
+    #ampm {
+      font-size: 2rem;
+    }
+
+    .date {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 35px;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="time test">
+    <div class="inside">
+      GMT+9 [South Korea] (±5sec)
+      <div class="days-of-week">
+        <span id="sun" class="active">SUN</span>
+        <span id="mon">MON</span>
+        <span id="tus">TUS</span>
+        <span id="wed">WED</span>
+        <span id="thu">THU</span>
+        <span id="fri">FRI</span>
+        <span id="sat">SAT</span>
+      </div>
+      <br>
+      <div class="time">
+        <span id="hours">01</span> :
+        <span id="min">01</span> :
+        <span id="sec">01</span>
+        <span id="ampm">AM</span>
+      </div>
+      <div class="date">
+        <span class="icon">
+          <span id="year">2024.</span>
+          <span id="month">DEC.</span>
+          <span id="day">01.</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 기존 시계 코드 유지
+    const daysOfWeek = ['sun', 'mon', 'tus', 'wed', 'thu', 'fri', 'sat'];
+    const months = [
+      '01.', '02.', '03.', '04.', '05.', '06.',
+      '07.', '08.', '09.', '10.', '11.', '12.',
+    ];
+
+    const $ = (id) => document.getElementById(id);
+    const zeroPadding = (num) => String(num).padStart(2, '0');
+
+    function clock() {
+      const today = new Date();
+      const h = today.getHours();
+      const m = today.getMinutes();
+      const s = today.getSeconds();
+      const ampm = h < 12 ? 'AM' : 'PM';
+      const day = today.getDay();
+      const date = today.getDate();
+      const month = today.getMonth();
+      const year = today.getFullYear();
+
+      // 시간 업데이트
+      $('hours').innerHTML = zeroPadding(h % 12 || 12); // 12시간 형식
+      $('min').innerHTML = zeroPadding(m);
+      $('sec').innerHTML = zeroPadding(s);
+      $('ampm').innerHTML = ampm;
+
+      // 요일 업데이트
+      const activeDay = $(daysOfWeek[day]);
+      if (activeDay) {
+        document.querySelector('.days-of-week .active')?.classList.remove('active', 'weekday', 'saturday', 'sunday');
+
+        // 요일별 색상 추가
+        if (day === 0) activeDay.classList.add('active', 'sunday'); // 일요일
+        else if (day === 6) activeDay.classList.add('active', 'saturday'); // 토요일
+        else activeDay.classList.add('active', 'weekday'); // 월~금요일
+      }
+
+      // 날짜 업데이트
+      $('year').innerHTML = year;
+      $('month').innerHTML = months[month];
+      $('day').innerHTML = zeroPadding(date);
+    }
+
+    setInterval(clock, 1000);
+    clock(); // 초기화 실행
+
+  </script>
+</body>
+</html>
