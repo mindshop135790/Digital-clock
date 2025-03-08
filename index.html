@@ -8,14 +8,14 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #000000; /* 배경색 */
+      background-color: #000000; 
       color: #ffffff;
       font-family: Arial, sans-serif;
-      height: 100vh; /* 화면 높이를 100% 채움 */
-      display: flex; /* Flexbox 컨테이너 */
-      justify-content: center; /* 가로 중앙 정렬 */
-      align-items: center; /* 세로 중앙 정렬 */
-      overflow: hidden; /* 스크롤바 제거 */
+      height: 100vh; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      overflow: hidden; 
     }
 
     .clock {
@@ -31,7 +31,7 @@
     }
 
     .clock-container {
-      text-align: center; /* 텍스트 가운데 정렬 */
+      text-align: center; 
     }
 
     .inside {
@@ -52,23 +52,23 @@
     }
 
     .days-of-week span {
-     color: #ffffff33; /* 기본 색상 */
+     color: #ffffff33; 
     }
 
     .days-of-week .active {
-     font-weight: bold; /* 활성화된 요일은 볼드 처리 */
+     font-weight: bold; 
     }
 
     .days-of-week .weekday {
-     color: #00ff00; /* 초록색 (월 ~ 금) */
+     color: #00ff00; 
     }
 
     .days-of-week .saturday {
-     color: #0000ff; /* 파란색 (토요일) */
+     color: #0000ff; 
     }
 
     .days-of-week .sunday {
-     color: #ff0000; /* 빨간색 (일요일) */
+     color: #ff0000; 
     }
 
     .time {
@@ -121,7 +121,6 @@
   </div>
 
   <script>
-    // 기존 시계 코드 유지
     const daysOfWeek = ['sun', 'mon', 'tus', 'wed', 'thu', 'fri', 'sat'];
     const months = [
       '01.', '02.', '03.', '04.', '05.', '06.',
@@ -142,31 +141,27 @@
       const month = today.getMonth();
       const year = today.getFullYear();
 
-      // 시간 업데이트
-      $('hours').innerHTML = zeroPadding(h % 12 || 12); // 12시간 형식
+      $('hours').innerHTML = zeroPadding(h % 12 || 12); 
       $('min').innerHTML = zeroPadding(m);
       $('sec').innerHTML = zeroPadding(s);
       $('ampm').innerHTML = ampm;
 
-      // 요일 업데이트
       const activeDay = $(daysOfWeek[day]);
       if (activeDay) {
         document.querySelector('.days-of-week .active')?.classList.remove('active', 'weekday', 'saturday', 'sunday');
 
-        // 요일별 색상 추가
-        if (day === 0) activeDay.classList.add('active', 'sunday'); // 일요일
-        else if (day === 6) activeDay.classList.add('active', 'saturday'); // 토요일
-        else activeDay.classList.add('active', 'weekday'); // 월~금요일
+        if (day === 0) activeDay.classList.add('active', 'sunday'); 
+        else if (day === 6) activeDay.classList.add('active', 'saturday'); 
+        else activeDay.classList.add('active', 'weekday'); 
       }
 
-      // 날짜 업데이트
       $('year').innerHTML = year;
       $('month').innerHTML = months[month];
       $('day').innerHTML = zeroPadding(date);
     }
 
     setInterval(clock, 1000);
-    clock(); // 초기화 실행
+    clock(); 
 
   </script>
 </body>
